@@ -21,12 +21,26 @@ body{background:#e2e8f0;font-family:var(--font);min-height:100vh;padding:16px}
 /* ── TOOLBAR ── */
 .toolbar{max-width:1200px;margin:0 auto 16px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
 .toolbar h1{font-size:1.2rem;font-weight:800;color:#1e3a8a}
-.tb-btns{display:flex;gap:8px}
+.tb-btns{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 .btn{padding:8px 18px;border:none;border-radius:8px;font-family:var(--font);font-size:.82rem;font-weight:600;cursor:pointer;transition:all .15s}
 .btn-blue{background:var(--blue);color:#fff}.btn-blue:hover{background:var(--blue2)}
-.btn-orange{background:#ea580c;color:#fff}.btn-orange:hover{background:#c2410c}
 .btn-gray{background:var(--gray200);color:var(--gray700)}.btn-gray:hover{background:var(--gray300)}
 .btn-green{background:#16a34a;color:#fff}.btn-green:hover{background:#15803d}
+
+/* Download dropdown group */
+.dl-group{position:relative;display:flex;align-items:center}
+.btn-orange{background:#ea580c;color:#fff;border-radius:8px 0 0 8px;border-right:1px solid #c2410c}.btn-orange:hover{background:#c2410c}
+.dl-arrow{background:#ea580c;color:#fff;border:none;border-radius:0 8px 8px 0;padding:8px 10px;cursor:pointer;font-size:.75rem;transition:background .15s}
+.dl-arrow:hover{background:#c2410c}
+.dl-menu{display:none;position:absolute;top:calc(100% + 4px);right:0;background:#fff;border:1.5px solid var(--gray200);border-radius:8px;box-shadow:0 6px 20px rgba(0,0,0,.12);min-width:160px;z-index:100;overflow:hidden}
+.dl-menu.open{display:block}
+.dl-menu button{display:flex;align-items:center;gap:8px;width:100%;padding:9px 14px;background:none;border:none;font-family:var(--font);font-size:.8rem;color:var(--gray700);cursor:pointer;text-align:left;transition:background .12s}
+.dl-menu button:hover{background:var(--blue-light);color:var(--blue)}
+.dl-menu button span.ql{font-size:.65rem;background:var(--gray100);color:var(--gray500);padding:1px 5px;border-radius:4px;font-weight:600}
+.dl-menu .ql-uhd{background:#fef3c7;color:#b45309}
+.dl-menu .ql-hd{background:#dcfce7;color:#16a34a}
+.dl-menu .ql-norm{background:#e0e7ff;color:#4338ca}
+.dl-divider{height:1px;background:var(--gray100);margin:2px 0}
 
 /* ── LAYOUT ── */
 .wrap{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:340px 1fr;gap:16px;align-items:start}
@@ -43,9 +57,9 @@ body{background:#e2e8f0;font-family:var(--font);min-height:100vh;padding:16px}
 .f textarea{resize:vertical;min-height:50px}
 .row2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 
-/* items */
-.items-hdr{display:grid;grid-template-columns:1fr 52px 72px 64px 28px;gap:5px;font-size:.65rem;font-weight:700;color:var(--gray500);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}
-.item-row{display:grid;grid-template-columns:1fr 52px 72px 64px 28px;gap:5px;margin-bottom:5px;align-items:center}
+/* items — 6 columns: item(1fr) | desc(1fr) | qty | amount | gst | del */
+.items-hdr{display:grid;grid-template-columns:1fr 1fr 48px 70px 60px 28px;gap:5px;font-size:.65rem;font-weight:700;color:var(--gray500);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}
+.item-row{display:grid;grid-template-columns:1fr 1fr 48px 70px 60px 28px;gap:5px;margin-bottom:5px;align-items:center}
 .item-row input,.item-row select{padding:5px 7px;border:1.5px solid var(--gray200);border-radius:6px;font-family:var(--font);font-size:.75rem;color:var(--gray900)}
 .item-row input:focus,.item-row select:focus{outline:none;border-color:var(--blue)}
 .del-btn{background:none;border:none;color:#d1d5db;cursor:pointer;font-size:.9rem;transition:color .15s;text-align:center;padding:4px}
@@ -75,21 +89,18 @@ body{background:#e2e8f0;font-family:var(--font);min-height:100vh;padding:16px}
   display:flex;flex-direction:column;
   position:relative;overflow:hidden;
 }
-/* Outer blue border inset ~1cm (38px) from page edge */
 .a4::before{
   content:'';position:absolute;
   top:38px;left:38px;right:38px;bottom:38px;
   border:2.5px solid #1d4ed8;
   pointer-events:none;z-index:20;
 }
-/* Thin inner accent line */
 .a4::after{
   content:'';position:absolute;
   top:43px;left:43px;right:43px;bottom:43px;
   border:1px solid #93c5fd;
   pointer-events:none;z-index:20;
 }
-/* Gold corner accents */
 .a4-corner-tl,.a4-corner-tr,.a4-corner-bl,.a4-corner-br{
   position:absolute;width:16px;height:16px;z-index:21;pointer-events:none;
 }
@@ -98,11 +109,9 @@ body{background:#e2e8f0;font-family:var(--font);min-height:100vh;padding:16px}
 .a4-corner-bl{bottom:32px;left:32px;border-bottom:2.5px solid #f59e0b;border-left:2.5px solid #f59e0b}
 .a4-corner-br{bottom:32px;right:32px;border-bottom:2.5px solid #f59e0b;border-right:2.5px solid #f59e0b}
 
-/* WATERMARK */
 .wm{position:absolute;inset:0;pointer-events:none;overflow:hidden;opacity:.04;z-index:10}
 .wm span{position:absolute;font-size:28px;font-weight:900;color:#1e293b;transform:rotate(-45deg);white-space:nowrap}
 
-/* INNER CONTENT WRAPPER — sits inside the 1cm border */
 .a4-inner{
   position:absolute;
   top:48px;left:48px;right:48px;bottom:48px;
@@ -132,20 +141,29 @@ body{background:#e2e8f0;font-family:var(--font);min-height:100vh;padding:16px}
 
 /* ITEMS TABLE */
 .items-section{padding:6px 0}
-.items-table{width:100%;border-collapse:collapse;font-size:8px}
+.items-table{width:100%;border-collapse:collapse;font-size:8px;table-layout:fixed}
+/* Item name and Description — exactly equal width */
+.items-table thead th:nth-child(2),
+.items-table tbody td:nth-child(2){width:18%;word-break:break-word}
+.items-table thead th:nth-child(3),
+.items-table tbody td:nth-child(3){width:18%;word-break:break-word;font-size:7px}
 .items-table thead tr{background:linear-gradient(90deg,var(--blue) 0%,var(--blue2) 100%);color:#fff}
 .items-table thead th{padding:4px 4px;font-weight:600;font-size:7px;text-transform:uppercase;letter-spacing:.04em;border:1px solid var(--blue2)}
-.items-table thead th:not(:nth-child(1)):not(:nth-child(2)):not(:nth-child(3)){text-align:right}
-.items-table thead th:nth-child(2){text-align:left}
+.items-table thead th.r{text-align:right}
+.items-table thead th.c{text-align:center}
+.items-table thead th.l{text-align:left}
 .items-table tbody tr:nth-child(even){background:var(--gray50)}
 .items-table tbody tr{border-bottom:1px solid var(--gray200)}
 .items-table tbody td{padding:4px 4px;border:1px solid var(--gray200);color:var(--gray700)}
-.items-table tbody td:not(:nth-child(1)):not(:nth-child(2)):not(:nth-child(3)){text-align:right}
+
+/* INVOICE DESCRIPTION BAND */
+.inv-desc-band{background:#eff6ff;border:1px solid #bfdbfe;border-radius:5px;padding:5px 8px;margin:3px 0 0;}
+.inv-desc-title{font-size:6px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#1e3a8a;margin-bottom:2px}
+.inv-desc-text{font-size:7.5px;color:#374151;line-height:1.6}
 
 /* BOTTOM SECTION */
 .bottom-section{padding:6px 0;display:grid;grid-template-columns:1fr 1fr;gap:8px;flex:1}
 
-/* LEFT */
 .bank-upi-box{background:linear-gradient(135deg,#eff6ff,#eef2ff);border:2px solid var(--blue-border);border-radius:6px;padding:8px;display:flex;gap:8px;align-items:flex-start;margin-bottom:6px}
 .bank-details-left{flex:1}
 .bank-title{font-size:7px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#1e3a8a;margin-bottom:3px}
@@ -163,7 +181,6 @@ body{background:#e2e8f0;font-family:var(--font);min-height:100vh;padding:16px}
 .terms-title{font-size:7px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--blue);margin-bottom:2px}
 .terms-text{font-size:7px;color:var(--gray700);line-height:1.6}
 
-/* RIGHT */
 .totals-box{background:linear-gradient(135deg,var(--gray50),var(--gray100));border:1px solid var(--gray300);border-radius:6px;padding:8px;box-shadow:0 2px 6px rgba(0,0,0,.06)}
 .t-row{display:flex;justify-content:space-between;padding:3px 0;font-size:8px;color:var(--gray600);border-bottom:1px solid #f1f5f9}
 .t-row strong{color:var(--gray900)}
@@ -176,11 +193,13 @@ body{background:#e2e8f0;font-family:var(--font);min-height:100vh;padding:16px}
 .sig-line-el{border-top:2px solid var(--gray400,#9ca3af);width:120px;margin-left:auto;margin-top:40px;padding-top:3px}
 .sig-label-text{font-size:8px;color:var(--gray600)}
 
-/* FOOTER */
 .a4-footer{background:var(--gray100);border-top:1px solid var(--gray300);padding:5px 0;margin-top:auto}
 .footer-text{font-size:6px;font-style:italic;color:var(--gray500);text-align:center}
 
-/* print */
+/* Quality progress toast */
+.dl-toast{position:fixed;bottom:24px;right:24px;background:#1e3a8a;color:#fff;padding:10px 18px;border-radius:10px;font-size:.82rem;font-weight:600;box-shadow:0 4px 20px rgba(0,0,0,.25);display:none;z-index:9999;align-items:center;gap:8px}
+.dl-toast.show{display:flex}
+
 @media print{
   body{background:#fff;padding:0}
   .toolbar,.wrap,.preview-note{display:none}
@@ -197,10 +216,36 @@ body{background:#e2e8f0;font-family:var(--font);min-height:100vh;padding:16px}
   <div class="tb-btns">
     <button class="btn btn-gray" onclick="resetAll()">Reset</button>
     <button class="btn btn-blue" onclick="generate()">🔄 Refresh Preview</button>
-    <button class="btn btn-orange" onclick="downloadPDF()">⬇ Download PDF</button>
+
+    <!-- Download group with quality dropdown -->
+    <div class="dl-group" id="dlGroup">
+      <button class="btn btn-orange" onclick="downloadPDF('normal')">⬇ Download PDF</button>
+      <button class="dl-arrow" onclick="toggleDlMenu()" title="Quality options">▾</button>
+      <div class="dl-menu" id="dlMenu">
+        <button onclick="downloadPDF('normal');toggleDlMenu()">
+          <span>📄 Normal</span><span class="ql ql-norm">150 DPI</span>
+        </button>
+        <div class="dl-divider"></div>
+        <button onclick="downloadPDF('hd');toggleDlMenu()">
+          <span>🖼 HD</span><span class="ql ql-hd">250 DPI</span>
+        </button>
+        <div class="dl-divider"></div>
+        <button onclick="downloadPDF('uhd');toggleDlMenu()">
+          <span>✨ Ultra HD</span><span class="ql ql-uhd">350 DPI</span>
+        </button>
+        <div class="dl-divider"></div>
+        <button onclick="downloadPDF('print');toggleDlMenu()">
+          <span>🖨 Print Quality</span><span class="ql ql-uhd">450 DPI</span>
+        </button>
+      </div>
+    </div>
+
     <button class="btn btn-green" onclick="window.print()">🖨 Print</button>
   </div>
 </div>
+
+<!-- Toast -->
+<div class="dl-toast" id="dlToast">⏳ <span id="toastMsg">Generating PDF…</span></div>
 
 <div class="wrap">
 
@@ -211,7 +256,7 @@ body{background:#e2e8f0;font-family:var(--font);min-height:100vh;padding:16px}
   <!-- Logo -->
   <div class="sec-label">🏢 Company Logo</div>
   <div class="logo-upload">
-    <img id="logoThumb" src="ledhouselogo.jpeg" class="logo-preview" alt="logo"/>
+    <img id="logoThumb" src="ledhouselogo.jpeg" class="logo-preview" alt="logo" onerror="this.style.display='none'"/>
     <label class="logo-upload-label" for="logoFile">Upload Logo (PNG/JPG)</label>
     <input type="file" id="logoFile" accept="image/*" onchange="handleLogo(event)"/>
   </div>
@@ -247,6 +292,13 @@ body{background:#e2e8f0;font-family:var(--font);min-height:100vh;padding:16px}
     </div>
   </div>
 
+  <!-- Invoice-level Description -->
+  <div class="sec-label">📝 Invoice Description</div>
+  <div class="f">
+    <label>Description / Subject of Invoice</label>
+    <textarea id="inv_desc" placeholder="e.g. Supply of LED lighting materials for renovation project at Site A, Phase 2" rows="3" oninput="generate()"></textarea>
+  </div>
+
   <!-- Bill To -->
   <div class="sec-label">👤 Bill To</div>
   <div class="f"><label>Buyer Name *</label><input id="b_name" placeholder="Customer / Company Name" oninput="generate()"/></div>
@@ -275,16 +327,19 @@ body{background:#e2e8f0;font-family:var(--font);min-height:100vh;padding:16px}
     <div class="f"><label>Branch</label><input id="bank_branch" placeholder="Branch Name" oninput="generate()"/></div>
   </div>
 
-  <!-- Items -->
+  <!-- Items — now with Description column -->
   <div class="sec-label">📦 Line Items</div>
   <div class="items-hdr">
-    <span>Description</span><span style="text-align:center">Qty</span><span style="text-align:right">Amount</span><span style="text-align:right">GST%</span><span></span>
+    <span>Item Name</span>
+    <span>Description</span>
+    <span style="text-align:center">Qty</span>
+    <span style="text-align:right">Amount</span>
+    <span style="text-align:right">GST%</span>
+    <span></span>
   </div>
   <div id="itemsList"></div>
   <button class="add-btn" onclick="addItem()">＋ Add Item</button>
-
-  <!-- HSN per item note -->
-  <p style="font-size:.68rem;color:var(--gray500);margin-top:4px">💡 HSN code can be set per item in the description field.</p>
+  <p style="font-size:.68rem;color:var(--gray500);margin-top:4px">💡 HSN code can be included in the item name as "HSN: 0000".</p>
 
   <!-- Notes & Terms -->
   <div class="sec-label">💬 Notes &amp; Terms</div>
@@ -304,6 +359,16 @@ body{background:#e2e8f0;font-family:var(--font);min-height:100vh;padding:16px}
 // ─── STATE ───
 let logoSrc = "ledhouselogo.jpeg";
 let itemCount = 0;
+
+// ─── DROPDOWN ───
+function toggleDlMenu(){
+  document.getElementById('dlMenu').classList.toggle('open');
+}
+document.addEventListener('click', e => {
+  if(!document.getElementById('dlGroup').contains(e.target)){
+    document.getElementById('dlMenu').classList.remove('open');
+  }
+});
 
 // ─── HELPERS ───
 function V(id){ const el=document.getElementById(id); return el ? el.value.trim() : ''; }
@@ -338,23 +403,19 @@ function inWords(n){
 function handleLogo(e){
   const file=e.target.files[0]; if(!file) return;
   const r=new FileReader();
-  r.onload=ev=>{
-    logoSrc=ev.target.result;
-    const thumb=document.getElementById('logoThumb');
-    thumb.src=logoSrc;
-    generate();
-  };
+  r.onload=ev=>{ logoSrc=ev.target.result; document.getElementById('logoThumb').src=logoSrc; generate(); };
   r.readAsDataURL(file);
 }
 
-// ─── ITEMS ───
-function addItem(desc='',hsn='',qty=1,amount=0,gst=18){
+// ─── ITEMS (now with description field) ───
+function addItem(name='',desc='',qty=1,amount=0,gst=18){
   itemCount++;
   const id=itemCount;
   const div=document.createElement('div');
   div.className='item-row'; div.id='irow_'+id;
   div.innerHTML=`
-    <input placeholder="Item desc | HSN: 0000" value="${desc}" id="id_${id}" oninput="generate()"/>
+    <input placeholder="Item name | HSN: 0000" value="${name}" id="id_${id}" oninput="generate()"/>
+    <input placeholder="Short description" value="${desc}" id="idesc_${id}" oninput="generate()"/>
     <input type="number" min="0" value="${qty}" id="iq_${id}" oninput="generate()" style="text-align:center"/>
     <input type="number" min="0" value="${amount}" id="ir_${id}" oninput="generate()" style="text-align:right" placeholder="Amt incl. GST"/>
     <select id="ig_${id}" onchange="generate()">
@@ -370,16 +431,17 @@ function removeItem(id){ document.getElementById('irow_'+id).remove(); generate(
 function getItems(){
   return [...document.querySelectorAll('.item-row')].map(row=>{
     const id=row.id.split('_')[1];
-    const rawDesc=document.getElementById('id_'+id).value||'Item';
-    const hsnMatch=rawDesc.match(/HSN[:\s]+([0-9]+)/i);
+    const rawName=document.getElementById('id_'+id).value||'Item';
+    const itemDesc=document.getElementById('idesc_'+id).value||'';
+    const hsnMatch=rawName.match(/HSN[:\s]+([0-9]+)/i);
     const hsn=hsnMatch?hsnMatch[1]:'';
-    const desc=rawDesc.replace(/\|?\s*HSN[:\s]+[0-9]+/gi,'').trim();
+    const name=rawName.replace(/\|?\s*HSN[:\s]+[0-9]+/gi,'').trim();
     const qty=+document.getElementById('iq_'+id).value||0;
-    const amount=+document.getElementById('ir_'+id).value||0;  // total amount incl. GST per unit
+    const amount=+document.getElementById('ir_'+id).value||0;
     const gst=+document.getElementById('ig_'+id).value||0;
-    const rate=amount/(1+gst/100);          // back-calculated base rate (excl. GST)
+    const rate=amount/(1+gst/100);
     const taxable=qty*rate;
-    return{ desc, hsn, qty, rate, gst, taxable, gstAmt:taxable*gst/100, total:qty*amount };
+    return{ name, itemDesc, hsn, qty, rate, gst, taxable, gstAmt:taxable*gst/100, total:qty*amount };
   });
 }
 
@@ -410,7 +472,6 @@ function generate(){
     gstMap[i.gst].gstAmt+=i.gstAmt;
   });
 
-  // ── TOTALS BOX: original separate CGST/SGST rows ──
   let taxRows='';
   Object.entries(gstMap).forEach(([rate,d])=>{
     if(+rate===0) return;
@@ -423,17 +484,18 @@ function generate(){
     }
   });
 
-  // ── TABLE ROWS: Tax Amt = total (CGST+SGST), label shown below amount ──
+  // TABLE ROWS — description color now matches item (header) color: #111827
   let tRows='';
   items.forEach((it,i)=>{
     const taxRate=it.gst;
     const taxDisplay=gstType==='intra'
-      ?`<span>${fmtN(it.gstAmt)}</span><span style="font-size:6px;color:#9ca3af;display:block">(CGST ${taxRate/2}%+SGST ${taxRate/2}%)</span>`
+      ?`<span>${fmtN(it.gstAmt)}</span><span style="font-size:6px;color:#9ca3af;display:block">(C+S ${taxRate/2}%+${taxRate/2}%)</span>`
       :`<span>${fmtN(it.gstAmt)}</span><span style="font-size:6px;color:#9ca3af;display:block">(IGST ${taxRate}%)</span>`;
 
     tRows+=`<tr>
       <td style="text-align:center;color:#6b7280">${i+1}</td>
-      <td style="color:#111827;font-weight:500">${it.desc}</td>
+      <td style="color:#111827;font-weight:600">${it.name}</td>
+      <td style="color:#111827;font-size:7px;">${it.itemDesc||'–'}</td>
       <td style="text-align:center;color:#374151">${it.hsn||'–'}</td>
       <td style="text-align:right">${fmtN(it.qty)}</td>
       <td style="text-align:right">${fmtN(it.rate)}</td>
@@ -448,7 +510,7 @@ function generate(){
   const upiUrl=upiId?`upi://pay?pa=${encodeURIComponent(upiId)}&pn=${encodeURIComponent(sName)}&am=${grandRounded}&cu=INR&tn=Invoice%20${encodeURIComponent(V('inv_no')||'INV')}`:'';
   const qrUrl=upiId?`https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=${encodeURIComponent(upiUrl)}`:'';
 
-  const logoHtml=`<img src="${logoSrc}" class="co-logo" alt="logo" crossorigin="anonymous"/>`;
+  const logoHtml=`<img src="${logoSrc}" class="co-logo" alt="logo" crossorigin="anonymous" onerror="this.style.display='none'"/>`;
 
   const bAddr=V('b_addr').replace(/\n/g,'<br/>');
   const sAddr=V('s_addr').replace(/\n/g,'<br/>');
@@ -456,6 +518,7 @@ function generate(){
   const shAddr=(V('sh_addr')||V('b_addr')).replace(/\n/g,'<br/>');
   const notes=V('notes')||'Cash / UPI / Bank Transfer';
   const terms=V('terms')||'Goods once sold will not be taken back. E. & O.E.';
+  const invDesc=V('inv_desc');
 
   const bankBlock=`
     <p class="bank-row">🏦 <strong>${V('bank_name')||'Bank Name'}</strong></p>
@@ -466,8 +529,8 @@ function generate(){
   const html=`
 <div class="a4" id="a4doc">
   <div class="wm">${buildWM(sName)}</div>
-
   <div class="a4-inner">
+
   <header class="a4-header">
     <div style="display:flex;align-items:flex-start;gap:8px">
       ${logoHtml}
@@ -489,6 +552,11 @@ function generate(){
       </div>
     </div>
   </header>
+
+  ${invDesc?`<div class="inv-desc-band">
+    <div class="inv-desc-title">📋 Description</div>
+    <div class="inv-desc-text">${invDesc.replace(/\n/g,'<br/>')}</div>
+  </div>`:''}
 
   <section class="party-section">
     <div class="party-grid">
@@ -513,16 +581,17 @@ function generate(){
     <table class="items-table">
       <thead>
         <tr>
-          <th style="width:24px">No</th>
-          <th style="text-align:left">Item</th>
-          <th style="width:50px;text-align:center">HSN/SAC</th>
-          <th style="width:36px">Qty</th>
-          <th style="width:52px">Rate</th>
-          <th style="width:80px">Tax Amt (CGST+SGST)</th>
-          <th style="width:60px">Amount</th>
+          <th style="width:22px" class="c">No</th>
+          <th style="width:18%" class="l">Item</th>
+          <th style="width:18%" class="l">Description</th>
+          <th style="width:46px" class="c">HSN/SAC</th>
+          <th style="width:32px" class="r">Qty</th>
+          <th style="width:50px" class="r">Rate</th>
+          <th style="width:78px" class="r">Tax Amount</th>
+          <th style="width:58px" class="r">Total</th>
         </tr>
       </thead>
-      <tbody>${tRows||`<tr><td colspan="7" style="text-align:center;color:#9ca3af;padding:12px">No items added yet</td></tr>`}</tbody>
+      <tbody>${tRows||`<tr><td colspan="8" style="text-align:center;color:#9ca3af;padding:12px">No items added yet</td></tr>`}</tbody>
     </table>
   </section>
 
@@ -535,17 +604,16 @@ function generate(){
           <div style="margin-top:5px">
             <div class="pbox-title">Payment Options:</div>
             <div class="pbox-text">${notes.replace(/\n/g,'<br/>')}</div>
-            <div style="font-size:7px;font-weight:700;color:#111827;margin-top:2px">Cash</div>
           </div>
         </div>
         <div style="display:flex;flex-direction:row;gap:8px;align-items:flex-start">
           ${qrUrl?`
           <div class="upi-right">
-            <img src="${qrUrl}" class="upi-img" alt="UPI QR"/>
+            <img src="${qrUrl}" class="upi-img" alt="UPI QR" crossorigin="anonymous"/>
             <div class="upi-label">Scan to Pay (UPI)<br/>${cur}${grandRounded.toLocaleString('en-IN')}</div>
           </div>`:`<div class="upi-right" style="min-width:80px;display:flex;align-items:center;justify-content:center;border:2px dashed #d1d5db;border-radius:6px;font-size:7px;color:#9ca3af;text-align:center;padding:6px">Add UPI ID<br/>for QR code</div>`}
           <div class="upi-right">
-            <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=${encodeURIComponent('https://sites.google.com/view/ledhouseprem/home')}" class="upi-img" alt="Website QR"/>
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=${encodeURIComponent('https://sites.google.com/view/ledhouseprem/home')}" class="upi-img" alt="Website QR" crossorigin="anonymous"/>
             <div class="upi-label" style="text-align:center">🌐 Visit Website<br/><span style="font-size:6px;color:#2563eb">ledhouseprem</span></div>
           </div>
         </div>
@@ -585,42 +653,60 @@ function generate(){
   const a4=document.getElementById('a4doc');
   if(a4){
     ['a4-corner-tl','a4-corner-tr','a4-corner-bl','a4-corner-br'].forEach(cls=>{
-      const d=document.createElement('div');d.className=cls;a4.appendChild(d);
+      const d=document.createElement('div'); d.className=cls; a4.appendChild(d);
     });
   }
 }
 
+// ─── QUALITY PRESETS ───
+const qualityPresets={
+  normal:{ scale:1.5, quality:.88, label:'Normal (150 DPI)' },
+  hd:    { scale:2.5, quality:.92, label:'HD (250 DPI)' },
+  uhd:   { scale:3.5, quality:.95, label:'Ultra HD (350 DPI)' },
+  print: { scale:4.5, quality:.97, label:'Print Quality (450 DPI)' },
+};
+
+function showToast(msg){ const t=document.getElementById('dlToast'); document.getElementById('toastMsg').textContent=msg; t.classList.add('show'); }
+function hideToast(){ document.getElementById('dlToast').classList.remove('show'); }
+
 // ─── DOWNLOAD PDF ───
-async function downloadPDF(){
+async function downloadPDF(quality='normal'){
   generate();
-  await new Promise(r=>setTimeout(r,300));
+  await new Promise(r=>setTimeout(r,350));
   const el=document.getElementById('a4doc');
   if(!el){alert('Please fill in details first.');return;}
-  const btn=document.querySelector('.btn-orange');
-  btn.textContent='⏳ Generating…'; btn.disabled=true;
+  const preset=qualityPresets[quality]||qualityPresets.normal;
+  showToast(`Generating ${preset.label}…`);
   try{
-    const canvas=await html2canvas(el,{scale:2.5,useCORS:true,backgroundColor:'#ffffff',logging:false});
+    const canvas=await html2canvas(el,{
+      scale:preset.scale,
+      useCORS:true,
+      backgroundColor:'#ffffff',
+      logging:false,
+      allowTaint:false
+    });
     const {jsPDF}=window.jspdf;
     const pdf=new jsPDF({orientation:'portrait',unit:'mm',format:'a4'});
     const w=pdf.internal.pageSize.getWidth();
     const h=pdf.internal.pageSize.getHeight();
-    pdf.addImage(canvas.toDataURL('image/jpeg',.96),'JPEG',0,0,w,h);
+    pdf.addImage(canvas.toDataURL('image/jpeg',preset.quality),'JPEG',0,0,w,h);
     const fname=(V('inv_no')||'Invoice').replace(/[^a-zA-Z0-9-_]/g,'_');
-    pdf.save(fname+'.pdf');
-  } catch(e){ alert('Error: '+e.message); }
-  btn.textContent='⬇ Download PDF'; btn.disabled=false;
+    const suffix=quality==='normal'?'':`_${quality.toUpperCase()}`;
+    pdf.save(fname+suffix+'.pdf');
+  } catch(e){ alert('Error generating PDF: '+e.message); }
+  hideToast();
 }
 
 // ─── RESET ───
 function resetAll(){
   if(!confirm('Reset everything?')) return;
-  ['inv_no','b_name','b_gstin','b_addr','b_phone','b_email',
+  ['inv_no','inv_desc','b_name','b_gstin','b_addr','b_phone','b_email',
    'sh_name','sh_addr','sh_phone'].forEach(id=>{
     const el=document.getElementById(id); if(el) el.value='';
   });
   document.getElementById('itemsList').innerHTML=''; itemCount=0;
   document.getElementById('inv_date').value=today();
-  document.getElementById('s_name').value='LED House';
+  document.getElementById('s_name').value='LED HOUSE';
   document.getElementById('s_gstin').value='21EVTPR8050M1ZT';
   document.getElementById('s_phone').value='+91 9124081685';
   document.getElementById('s_email').value='ledhouseanandapur@gmail.com';
@@ -631,7 +717,7 @@ function resetAll(){
   document.getElementById('bank_branch').value='Anandapur';
   document.getElementById('upi_id').value='8144868707@ybl';
   document.getElementById('notes').value='UPI / Cash / Bank Transfer / Cheque';
-  document.getElementById('terms').value='Goods once sold will not be taken back. \n We declare that invoice shows the actual price of the goods described and that all particulars aretrue and correct';
+  document.getElementById('terms').value='1. Goods once sold will not be taken back.\n2. We declare that invoice shows the actual price of the goods described and that all particulars are true and correct.\n3. All disputes will be settled on Anandapur jurisdiction.';
   generate();
 }
 
@@ -648,7 +734,7 @@ document.getElementById('bank_ifsc').value = 'HDFC0003343';
 document.getElementById('bank_branch').value = 'Anandapur';
 document.getElementById('upi_id').value = '8144868707@ybl';
 document.getElementById('notes').value = 'UPI / Cash / Bank Transfer / Cheque';
-document.getElementById('terms').value = '1. Goods once sold will not be taken back. \n2. We declare that invoice shows the actual price of the goods described and that all particulars are true and correct. \n3. All dispute will be settled on Anandapur jurisdiction.';
+document.getElementById('terms').value = '1. Goods once sold will not be taken back.\n2. We declare that invoice shows the actual price of the goods described and that all particulars are true and correct.\n3. All disputes will be settled on Anandapur jurisdiction.';
 generate();
 </script>
 </body>
