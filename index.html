@@ -86,9 +86,9 @@ body{background:#e2e8f0;font-family:var(--font);min-height:100vh;padding:16px}
 .wm{position:absolute;inset:0;pointer-events:none;overflow:hidden;opacity:.04;z-index:10}
 .wm span{position:absolute;font-size:28px;font-weight:900;color:#1e293b;transform:rotate(-45deg);white-space:nowrap}
 .a4-inner{position:absolute;top:48px;left:48px;right:48px;bottom:48px;display:flex;flex-direction:column;overflow:hidden;}
-.a4-header{padding:10px 0 8px;display:flex;justify-content:space-between;align-items:flex-start;border-bottom:2px solid var(--blue)}
-.co-logo{width:96px;height:96px;object-fit:contain}
-.co-info{margin-left:8px}
+.a4-header{padding:10px 0 8px;display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid var(--blue)}
+.co-logo{width:90px;height:90px;object-fit:contain;flex-shrink:0;display:block}
+.co-info{margin-left:10px;display:flex;flex-direction:column;justify-content:center}
 .co-name{font-size:28px;font-weight:900;color:var(--gray900);line-height:1;letter-spacing:.02em}
 .co-gstin{font-size:7px;font-weight:500;color:var(--gray500);margin-top:2px}
 .co-contact{margin-top:4px;font-size:7px;color:var(--gray600);line-height:1.6}
@@ -489,7 +489,7 @@ function generate(){
   '<div class="a4-inner">'+
 
   '<header class="a4-header">'+
-    '<div style="display:flex;align-items:flex-start;gap:8px">'+
+    '<div style="display:flex;align-items:center;gap:10px">'+
       '<img src="'+logoSrc+'" class="co-logo" alt="logo" crossorigin="anonymous"/>'+
       '<div class="co-info">'+
         '<div class="co-name">'+sName+'</div>'+
